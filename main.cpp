@@ -4,7 +4,15 @@
     #include <stdlib.h>
 #endif
 
+#include <stdio.h>
+#include <string>
+
 #include <SDL/SDL.h>
+#include <SDL/SDL_image.h>
+#include "init.h"
+#include "file.h"
+
+SDL_Surface* screen;
 
 int main ( int argc, char** argv )
 {
@@ -19,8 +27,9 @@ int main ( int argc, char** argv )
     atexit(SDL_Quit);
 
     // create a new window
-    SDL_Surface* screen = SDL_SetVideoMode(640, 480, 16,
-                                           SDL_HWSURFACE|SDL_DOUBLEBUF);
+    screen = SDL_SetVideoMode(800, 480, 16,
+            SDL_HWSURFACE|SDL_DOUBLEBUF|SDL_FULLSCREEN);
+
     if ( !screen )
     {
         printf("Unable to set 640x480 video: %s\n", SDL_GetError());
@@ -28,17 +37,20 @@ int main ( int argc, char** argv )
     }
 
     // load an image
-    SDL_Surface* bmp = SDL_LoadBMP("img/cb.bmp");
-    if (!bmp)
-    {
-        printf("Unable to load bitmap: %s\n", SDL_GetError());
-        return 1;
-    }
+    SDL_Surface* titleGFX = loadSurface("img/title.png", screen);
+    SDL_Surface* backgroundGFX = loadSurface("img/background.jpg", screen);
 
     // centre the bitmap on screen
     SDL_Rect dstrect;
-    dstrect.x = (screen->w - bmp->w) / 2;
-    dstrect.y = (screen->h - bmp->h) / 2;
+    dstrect.x = 0;
+    dstrect.y = 0;
+
+    // Disable cursor
+    SDL_ShowCursor(SDL_DISABLE);
+
+    // Init game
+    GameStatus gameStatus;
+    gameStatus.init();
 
     // program main loop
     bool done = false;
@@ -73,8 +85,14 @@ int main ( int argc, char** argv )
         SDL_FillRect(screen, 0, SDL_MapRGB(screen->format, 0, 0, 0));
 
         // draw bitmap
-        SDL_BlitSurface(bmp, 0, screen, &dstrect);
-
+        if (gameStatus.isTitlePage())
+        {
+            SDL_BlitSurface(titleGFX, 0, screen, &dstrect);
+        }
+        if (gameStatus.isGameScene())
+        {
+            SDL_BlitSurface(backgroundGFX, 0, screen, &dstrect);
+        }
         // DRAWING ENDS HERE
 
         // finally, update the screen :)
@@ -82,7 +100,8 @@ int main ( int argc, char** argv )
     } // end main loop
 
     // free loaded bitmap
-    SDL_FreeSurface(bmp);
+    SDL_FreeSurface(titleGFX);
+    SDL_FreeSurface(backgroundGFX);
 
     // all is well ;)
     printf("Exited cleanly\n");
