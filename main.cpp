@@ -11,8 +11,16 @@
 #include <SDL/SDL_image.h>
 #include "init.h"
 #include "file.h"
+#include "input.h"
 
 SDL_Surface* screen;
+bool inpUP;
+bool inpDW;
+bool inpLF;
+bool inpRG;
+bool done;
+int playerX;
+int playerY;
 
 int main ( int argc, char** argv )
 {
@@ -30,7 +38,7 @@ int main ( int argc, char** argv )
     screen = SDL_SetVideoMode(800, 480, 16,
             SDL_HWSURFACE|SDL_DOUBLEBUF|SDL_FULLSCREEN);
 
-    if ( !screen )
+    if (!screen)
     {
         printf("Unable to set 640x480 video: %s\n", SDL_GetError());
         return 1;
@@ -39,11 +47,12 @@ int main ( int argc, char** argv )
     // load an image
     SDL_Surface* titleGFX = loadSurface("img/title.png", screen);
     SDL_Surface* backgroundGFX = loadSurface("img/background.jpg", screen);
+    SDL_Surface* playerGFX = loadSurface("img/robot.png", screen);
 
-    // centre the bitmap on screen
-    SDL_Rect dstrect;
-    dstrect.x = 0;
-    dstrect.y = 0;
+    // position of background image
+    SDL_Rect originRect;
+    originRect.x = 0;
+    originRect.y = 0;
 
     // Disable cursor
     SDL_ShowCursor(SDL_DISABLE);
@@ -52,47 +61,42 @@ int main ( int argc, char** argv )
     GameStatus gameStatus;
     gameStatus.init();
 
+    // Player positiom
+    SDL_Rect playerRect;
+    playerRect.x = 400;
+    playerRect.y = 200;
+
     // program main loop
-    bool done = false;
+    done = false;
     while (!done)
     {
         // message processing loop
-        SDL_Event event;
-        while (SDL_PollEvent(&event))
-        {
-            // check for messages
-            switch (event.type)
-            {
-                // exit if the window is closed
-            case SDL_QUIT:
-                done = true;
-                break;
+        getInput();
 
-                // check for keypresses
-            case SDL_KEYDOWN:
-                {
-                    // exit if ESCAPE is pressed
-                    if (event.key.keysym.sym == SDLK_ESCAPE)
-                        done = true;
-                    break;
-                }
-            } // end switch
-        } // end of message processing
+        // input test
+        if (inpUP)
+            playerRect.y--;
+        if (inpDW)
+            playerRect.y++;
+        if (inpLF)
+            playerRect.x--;
+        if (inpRG)
+            playerRect.x++;
 
         // DRAWING STARTS HERE
-
-        // clear screen
-        SDL_FillRect(screen, 0, SDL_MapRGB(screen->format, 0, 0, 0));
 
         // draw bitmap
         if (gameStatus.isTitlePage())
         {
-            SDL_BlitSurface(titleGFX, 0, screen, &dstrect);
+            SDL_BlitSurface(titleGFX, 0, screen, &originRect);
         }
         if (gameStatus.isGameScene())
         {
-            SDL_BlitSurface(backgroundGFX, 0, screen, &dstrect);
+            SDL_BlitSurface(backgroundGFX, 0, screen, &originRect);
+            SDL_BlitSurface(playerGFX, 0, screen, &playerRect);
+
         }
+
         // DRAWING ENDS HERE
 
         // finally, update the screen :)

@@ -2,8 +2,8 @@
 
 void GameStatus::init()
 {
-    titlePage = true;
-    gameScene = false;
+    titlePage = false;
+    gameScene = true;
 }
 bool GameStatus::isTitlePage()
 {

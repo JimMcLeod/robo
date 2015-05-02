@@ -41,6 +41,8 @@
 		<Unit filename="file.h" />
 		<Unit filename="init.cpp" />
 		<Unit filename="init.h" />
+		<Unit filename="input.cpp" />
+		<Unit filename="input.h" />
 		<Unit filename="main.cpp" />
 		<Extensions>
 			<code_completion />
