@@ -1,6 +1,6 @@
 #include "file.h"
 
-SDL_Surface* loadSurface( std::string path, SDL_Surface* screen )
+SDL_Surface* loadSurface( std::string path)
 {
 	//The final optimized image
 	SDL_Surface* optimizedSurface = NULL;
@@ -22,3 +22,9 @@ SDL_Surface* loadSurface( std::string path, SDL_Surface* screen )
 return optimizedSurface;
 }
 
+void loadImages()
+{
+    titleGFX = loadSurface("img/title.png");
+    backgroundGFX = loadSurface("img/background.jpg");
+    playerGFX = loadSurface("img/robot.png");
+}

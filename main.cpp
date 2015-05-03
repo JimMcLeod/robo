@@ -4,9 +4,6 @@
     #include <stdlib.h>
 #endif
 
-#include <stdio.h>
-#include <string>
-
 #include <SDL/SDL.h>
 #include <SDL/SDL_image.h>
 #include "init.h"
@@ -20,8 +17,12 @@ bool inpLF;
 bool inpRG;
 bool inpFR;
 bool done;
-int playerX;
-int playerY;
+
+SDL_Rect playerRect;
+
+SDL_Surface* titleGFX;
+SDL_Surface* backgroundGFX;
+SDL_Surface* playerGFX;
 
 int main ( int argc, char** argv )
 {
@@ -41,14 +42,12 @@ int main ( int argc, char** argv )
 
     if (!screen)
     {
-        printf("Unable to set 640x480 video: %s\n", SDL_GetError());
+        printf("Unable to set full screen video: %s\n", SDL_GetError());
         return 1;
     }
 
-    // load an image
-    SDL_Surface* titleGFX = loadSurface("img/title.png", screen);
-    SDL_Surface* backgroundGFX = loadSurface("img/background.jpg", screen);
-    SDL_Surface* playerGFX = loadSurface("img/robot.png", screen);
+    // load images
+    loadImages();
 
     // position of background image
     SDL_Rect originRect;
@@ -62,40 +61,32 @@ int main ( int argc, char** argv )
     GameStatus gameStatus;
     gameStatus.init();
 
-    // Player positiom
-    SDL_Rect playerRect;
     playerRect.x = 400;
     playerRect.y = 200;
-
+    bool inpFRPressed = false;
     // program main loop
     done = false;
     while (!done)
     {
         // message processing loop
         getInput();
-
-        // input test
-        if (inpUP)
-            playerRect.y--;
-        if (inpDW)
-            playerRect.y++;
-        if (inpLF)
-            playerRect.x--;
-        if (inpRG)
-            playerRect.x++;
+        actOnInput();
 
         // DRAWING STARTS HERE
 
-        // draw bitmap
+        // draw titles
         if (gameStatus.isTitlePage())
         {
             SDL_BlitSurface(titleGFX, 0, screen, &originRect);
-            if (inpFR)
+            if (!inpFR && inpFRPressed)
             {
                 gameStatus.setGameScene(true);
                 gameStatus.setTitlePage(true);
             }
+            inpFRPressed = inpFR;
+
         }
+        // Render game
         if (gameStatus.isGameScene())
         {
             SDL_BlitSurface(backgroundGFX, 0, screen, &originRect);
@@ -104,10 +95,8 @@ int main ( int argc, char** argv )
         }
 
         // DRAWING ENDS HERE
-
-        // finally, update the screen :)
         SDL_Flip(screen);
-    } // end main loop
+    }
 
     // free loaded bitmap
     SDL_FreeSurface(titleGFX);

@@ -8,7 +8,7 @@ void getInput ()
         // check for messages
         switch (event.type)
         {
-            // exit if the window is closed
+        // exit if the window is closed
         case SDL_QUIT:
             done = true;
             break;
@@ -16,7 +16,6 @@ void getInput ()
             // check for keypresses
         case SDL_KEYDOWN:
             {
-                // exit if ESCAPE is pressed
                 if (event.key.keysym.sym == SDLK_ESCAPE)
                     done = true;
                 if (event.key.keysym.sym == SDLK_UP)
@@ -47,7 +46,18 @@ void getInput ()
                 break;
 
             }
-        } // end switch
-    } // end of message processing
+        }
+    }
+}
 
+void actOnInput()
+{
+    if (inpUP)
+        playerRect.y--;
+    if (inpDW)
+        playerRect.y++;
+    if (inpLF)
+        playerRect.x--;
+    if (inpRG)
+        playerRect.x++;
 }
