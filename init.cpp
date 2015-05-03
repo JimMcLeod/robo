@@ -17,18 +17,22 @@ GameObject GameStatus::initPlayer(GameObject player)
 
     return player;
 }
+
 bool GameStatus::isTitlePage()
 {
     return titlePage;
 }
+
 bool GameStatus::isGameScene()
 {
     return gameScene;
 }
+
 void GameStatus::setTitlePage(bool state)
 {
     titlePage = state;
 }
+
 void GameStatus::setGameScene(bool state)
 {
     gameScene = state;

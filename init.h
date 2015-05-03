@@ -6,6 +6,7 @@
 class GameStatus {
     bool titlePage;
     bool gameScene;
+
 public:
     void init();
     GameObject initPlayer(GameObject player);

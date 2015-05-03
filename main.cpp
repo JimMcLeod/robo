@@ -47,6 +47,7 @@ int main (int argc, char** argv)
         return 1;
     }
 
+    // Test fuction call from sruct
     gameObjects[0].update = &test;
     gameObjects[0].update();
 
@@ -63,10 +64,10 @@ int main (int argc, char** argv)
         return 1;
     }
 
-    // load images
+    // load image files
     loadImages();
 
-    // position of background image
+    // 0. 0 rect
     SDL_Rect originRect;
     originRect.x = 0;
     originRect.y = 0;
@@ -75,12 +76,15 @@ int main (int argc, char** argv)
     SDL_ShowCursor(SDL_DISABLE);
 
     // Init game
+    // MESS
     GameStatus gameStatus;
     gameStatus.init();
     GameObject player=gameObjects[0];
     player=gameStatus.initPlayer(player);
     player.direction = 0;
+
     bool inpFRPressed = false;
+
     // program main loop
     done = false;
     while (!done)
@@ -91,7 +95,7 @@ int main (int argc, char** argv)
 
         // DRAWING STARTS HERE
 
-        // draw titles
+        // Render title screen
         if (gameStatus.isTitlePage())
         {
             SDL_BlitSurface(titleGFX, 0, screen, &originRect);
@@ -101,8 +105,8 @@ int main (int argc, char** argv)
                 gameStatus.setTitlePage(true);
             }
             inpFRPressed = inpFR;
-
         }
+
         // Render game
         if (gameStatus.isGameScene())
         {
@@ -119,6 +123,7 @@ int main (int argc, char** argv)
     // free loaded bitmap
     SDL_FreeSurface(titleGFX);
     SDL_FreeSurface(backgroundGFX);
+    // MESS no freeing up of player surfaces
 
     // all is well ;)
     printf("Exited cleanly\n");
