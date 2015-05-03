@@ -5,13 +5,31 @@
 #endif
 
 #include <SDL/SDL.h>
+#include <SDL/SDL_image.h>
+#include "init.h"
+#include "file.h"
+#include "input.h"
 
-int main ( int argc, char** argv )
+SDL_Surface* screen;
+bool inpUP;
+bool inpDW;
+bool inpLF;
+bool inpRG;
+bool inpFR;
+bool done;
+
+SDL_Rect playerRect;
+
+SDL_Surface* titleGFX;
+SDL_Surface* backgroundGFX;
+SDL_Surface* playerGFX;
+
+int main (int argc, char** argv)
 {
     // initialize SDL video
-    if ( SDL_Init( SDL_INIT_VIDEO ) < 0 )
+    if (SDL_Init( SDL_INIT_VIDEO) < 0 )
     {
-        printf( "Unable to init SDL: %s\n", SDL_GetError() );
+        printf("Unable to init SDL: %s\n", SDL_GetError());
         return 1;
     }
 
@@ -19,70 +37,70 @@ int main ( int argc, char** argv )
     atexit(SDL_Quit);
 
     // create a new window
-    SDL_Surface* screen = SDL_SetVideoMode(640, 480, 16,
-                                           SDL_HWSURFACE|SDL_DOUBLEBUF);
-    if ( !screen )
+    screen = SDL_SetVideoMode(800, 480, 16,
+            SDL_HWSURFACE|SDL_DOUBLEBUF|SDL_FULLSCREEN);
+
+    if (!screen)
     {
-        printf("Unable to set 640x480 video: %s\n", SDL_GetError());
+        printf("Unable to set full screen video: %s\n", SDL_GetError());
         return 1;
     }
 
-    // load an image
-    SDL_Surface* bmp = SDL_LoadBMP("img/cb.bmp");
-    if (!bmp)
-    {
-        printf("Unable to load bitmap: %s\n", SDL_GetError());
-        return 1;
-    }
+    // load images
+    loadImages();
 
-    // centre the bitmap on screen
-    SDL_Rect dstrect;
-    dstrect.x = (screen->w - bmp->w) / 2;
-    dstrect.y = (screen->h - bmp->h) / 2;
+    // position of background image
+    SDL_Rect originRect;
+    originRect.x = 0;
+    originRect.y = 0;
 
+    // Disable cursor
+    SDL_ShowCursor(SDL_DISABLE);
+
+    // Init game
+    GameStatus gameStatus;
+    gameStatus.init();
+
+    playerRect.x = 400;
+    playerRect.y = 200;
+    bool inpFRPressed = false;
     // program main loop
-    bool done = false;
+    done = false;
     while (!done)
     {
         // message processing loop
-        SDL_Event event;
-        while (SDL_PollEvent(&event))
-        {
-            // check for messages
-            switch (event.type)
-            {
-                // exit if the window is closed
-            case SDL_QUIT:
-                done = true;
-                break;
-
-                // check for keypresses
-            case SDL_KEYDOWN:
-                {
-                    // exit if ESCAPE is pressed
-                    if (event.key.keysym.sym == SDLK_ESCAPE)
-                        done = true;
-                    break;
-                }
-            } // end switch
-        } // end of message processing
+        getInput();
+        actOnInput();
 
         // DRAWING STARTS HERE
 
-        // clear screen
-        SDL_FillRect(screen, 0, SDL_MapRGB(screen->format, 0, 0, 0));
+        // draw titles
+        if (gameStatus.isTitlePage())
+        {
+            SDL_BlitSurface(titleGFX, 0, screen, &originRect);
+            if (!inpFR && inpFRPressed)
+            {
+                gameStatus.setGameScene(true);
+                gameStatus.setTitlePage(true);
+            }
+            inpFRPressed = inpFR;
 
-        // draw bitmap
-        SDL_BlitSurface(bmp, 0, screen, &dstrect);
+        }
+        // Render game
+        if (gameStatus.isGameScene())
+        {
+            SDL_BlitSurface(backgroundGFX, 0, screen, &originRect);
+            SDL_BlitSurface(playerGFX, 0, screen, &playerRect);
+
+        }
 
         // DRAWING ENDS HERE
-
-        // finally, update the screen :)
         SDL_Flip(screen);
-    } // end main loop
+    }
 
     // free loaded bitmap
-    SDL_FreeSurface(bmp);
+    SDL_FreeSurface(titleGFX);
+    SDL_FreeSurface(backgroundGFX);
 
     // all is well ;)
     printf("Exited cleanly\n");
