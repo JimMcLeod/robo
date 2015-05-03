@@ -50,14 +50,18 @@ void getInput()
     }
 }
 
-void actOnInput()
+GameObject actOnInput(GameObject player)
 {
     if (inpUP)
         playerRect.y--;
     if (inpDW)
         playerRect.y++;
     if (inpLF)
-        playerRect.x--;
+        player.direction++;
     if (inpRG)
-        playerRect.x++;
+        player.direction--;
+
+    player.direction=player.direction & 7;
+
+    return player;
 }

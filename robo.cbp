@@ -44,6 +44,8 @@
 		<Unit filename="input.cpp" />
 		<Unit filename="input.h" />
 		<Unit filename="main.cpp" />
+		<Unit filename="sprite.cpp" />
+		<Unit filename="sprite.h" />
 		<Extensions>
 			<code_completion />
 			<envvars />

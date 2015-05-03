@@ -9,6 +9,8 @@
 #include "init.h"
 #include "file.h"
 #include "input.h"
+#include "game_object.h"
+#include "sprite.h"
 
 SDL_Surface* screen;
 bool inpUP;
@@ -18,11 +20,23 @@ bool inpRG;
 bool inpFR;
 bool done;
 
+enum Type
+{
+    player
+};
+
 SDL_Rect playerRect;
 
 SDL_Surface* titleGFX;
 SDL_Surface* backgroundGFX;
-SDL_Surface* playerGFX;
+SDL_Surface* playerGFX[4][8];
+
+GameObject gameObjects[5];
+
+void test()
+{
+    printf("TEST\n\n");
+}
 
 int main (int argc, char** argv)
 {
@@ -32,6 +46,9 @@ int main (int argc, char** argv)
         printf("Unable to init SDL: %s\n", SDL_GetError());
         return 1;
     }
+
+    gameObjects[0].update = &test;
+    gameObjects[0].update();
 
     // make sure SDL cleans up before exit
     atexit(SDL_Quit);
@@ -60,9 +77,9 @@ int main (int argc, char** argv)
     // Init game
     GameStatus gameStatus;
     gameStatus.init();
-
-    playerRect.x = 400;
-    playerRect.y = 200;
+    GameObject player=gameObjects[0];
+    player=gameStatus.initPlayer(player);
+    player.direction = 0;
     bool inpFRPressed = false;
     // program main loop
     done = false;
@@ -70,7 +87,7 @@ int main (int argc, char** argv)
     {
         // message processing loop
         getInput();
-        actOnInput();
+        player = actOnInput(player);
 
         // DRAWING STARTS HERE
 
@@ -90,8 +107,9 @@ int main (int argc, char** argv)
         if (gameStatus.isGameScene())
         {
             SDL_BlitSurface(backgroundGFX, 0, screen, &originRect);
-            SDL_BlitSurface(playerGFX, 0, screen, &playerRect);
-
+            player.animFrame++;
+            player.animFrame = player.animFrame & 3;
+            sprite(player);
         }
 
         // DRAWING ENDS HERE
