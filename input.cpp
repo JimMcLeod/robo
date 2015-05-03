@@ -1,6 +1,6 @@
 #include "input.h"
 
-void getInput ()
+void getInput()
 {
     SDL_Event event;
     while (SDL_PollEvent(&event))

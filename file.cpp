@@ -1,6 +1,6 @@
 #include "file.h"
 
-SDL_Surface* loadSurface( std::string path)
+SDL_Surface* loadSurface(std::string path)
 {
 	//The final optimized image
 	SDL_Surface* optimizedSurface = NULL;
