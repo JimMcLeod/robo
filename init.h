@@ -8,6 +8,8 @@ public:
     void init();
     bool isTitlePage();
     bool isGameScene();
+    void setTitlePage(bool status);
+    void setGameScene(bool status);
 };
 
 #endif

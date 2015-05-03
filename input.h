@@ -6,6 +6,8 @@ extern bool inpUP;
 extern bool inpDW;
 extern bool inpLF;
 extern bool inpRG;
+extern bool inpFR;
+
 extern bool done;
 
 void getInput();

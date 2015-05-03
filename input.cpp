@@ -27,6 +27,8 @@ void getInput ()
                     inpLF = true;
                 if (event.key.keysym.sym == SDLK_RIGHT)
                     inpRG = true;
+                if (event.key.keysym.sym == SDLK_END)
+                    inpFR = true;
                 break;
 
             }
@@ -40,6 +42,8 @@ void getInput ()
                     inpLF = false;
                 if (event.key.keysym.sym == SDLK_RIGHT)
                     inpRG = false;
+                if (event.key.keysym.sym == SDLK_END)
+                    inpFR = false;
                 break;
 
             }

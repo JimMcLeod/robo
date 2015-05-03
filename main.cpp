@@ -18,6 +18,7 @@ bool inpUP;
 bool inpDW;
 bool inpLF;
 bool inpRG;
+bool inpFR;
 bool done;
 int playerX;
 int playerY;
@@ -89,6 +90,11 @@ int main ( int argc, char** argv )
         if (gameStatus.isTitlePage())
         {
             SDL_BlitSurface(titleGFX, 0, screen, &originRect);
+            if (inpFR)
+            {
+                gameStatus.setGameScene(true);
+                gameStatus.setTitlePage(true);
+            }
         }
         if (gameStatus.isGameScene())
         {

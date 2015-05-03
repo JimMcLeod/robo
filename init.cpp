@@ -2,8 +2,8 @@
 
 void GameStatus::init()
 {
-    titlePage = false;
-    gameScene = true;
+    titlePage = true;
+    gameScene = false;
 }
 bool GameStatus::isTitlePage()
 {
@@ -12,4 +12,12 @@ bool GameStatus::isTitlePage()
 bool GameStatus::isGameScene()
 {
     return gameScene;
+}
+void GameStatus::setTitlePage(bool state)
+{
+    titlePage = state;
+}
+void GameStatus::setGameScene(bool state)
+{
+    gameScene = state;
 }
