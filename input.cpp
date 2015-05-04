@@ -50,18 +50,28 @@ void getInput()
     }
 }
 
-GameObject actOnInput(GameObject player)
+void actOnInput(GameObject &player)
 {
     if (inpUP)
-        playerRect.y--;
+        player.y--;
     if (inpDW)
-        playerRect.y++;
+        player.y++;
     if (inpLF)
-        player.direction++;
+    {
+        player.direction += player.turnRate;
+        if (player.direction >= player.noOfDirections)
+        {
+            player.direction -= player.noOfDirections;
+        }
+        printf("left:%f\n%f\n\n", player.noOfDirections, player.direction);
+    }
     if (inpRG)
-        player.direction--;
-
-    player.direction=player.direction & 7;
-
-    return player;
+    {
+        if (player.direction <= 0)
+        {
+            player.direction += player.noOfDirections;
+        }
+        player.direction -= player.turnRate;
+        printf("right:%f\n%f\n\n", player.noOfDirections, player.direction);
+    }
 }

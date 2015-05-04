@@ -15,5 +15,5 @@ extern SDL_Rect playerRect;
 extern bool done;
 
 void getInput();
-GameObject actOnInput(GameObject player);
+void actOnInput(GameObject &player);
 #endif

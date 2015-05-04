@@ -9,11 +9,15 @@ struct GameObject
 
     float x;
     float y;
-    int direction;
+    float direction;
+    float turnRate;
+    float noOfDirections;
     float speed;
     float width;
     float height;
-    int animFrame;
+    float animFrame;
+    float animUpdate;
+    float animNoOfFrames;
 
     void (* update)();
     void (* render)();

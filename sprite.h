@@ -8,7 +8,7 @@ extern GameObject gameObjects[5];
 extern SDL_Surface* playerGFX[4][8];
 extern SDL_Surface* screen;
 
-void sprite(GameObject gameObject);
+void sprite(GameObject &gameObject);
 
 #endif
 

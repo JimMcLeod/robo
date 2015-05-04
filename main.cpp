@@ -6,6 +6,7 @@
 
 #include <SDL/SDL.h>
 #include <SDL/SDL_image.h>
+#include "enums.h"
 #include "init.h"
 #include "file.h"
 #include "input.h"
@@ -19,11 +20,6 @@ bool inpLF;
 bool inpRG;
 bool inpFR;
 bool done;
-
-enum Type
-{
-    player
-};
 
 SDL_Rect playerRect;
 
@@ -67,7 +63,7 @@ int main (int argc, char** argv)
     // load image files
     loadImages();
 
-    // 0. 0 rect
+    // position 0. 0 rect
     SDL_Rect originRect;
     originRect.x = 0;
     originRect.y = 0;
@@ -89,9 +85,9 @@ int main (int argc, char** argv)
     done = false;
     while (!done)
     {
-        // message processing loop
+        // input
         getInput();
-        player = actOnInput(player);
+        actOnInput(player);
 
         // DRAWING STARTS HERE
 
@@ -111,8 +107,6 @@ int main (int argc, char** argv)
         if (gameStatus.isGameScene())
         {
             SDL_BlitSurface(backgroundGFX, 0, screen, &originRect);
-            player.animFrame++;
-            player.animFrame = player.animFrame & 3;
             sprite(player);
         }
 

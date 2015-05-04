@@ -37,6 +37,7 @@
 			<Add option="-lSDL_image" />
 		</Linker>
 		<Unit filename="cb.bmp" />
+		<Unit filename="enums.h" />
 		<Unit filename="file.cpp" />
 		<Unit filename="file.h" />
 		<Unit filename="init.cpp" />
