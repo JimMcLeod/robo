@@ -2,6 +2,7 @@
 #define _GAMESTATUS_INCLUDED__
 
 #include "game_object.h"
+#include "sprite.h"
 
 class GameStatus {
     bool titlePage;
@@ -9,7 +10,7 @@ class GameStatus {
 
 public:
     void init();
-    GameObject initPlayer(GameObject player);
+    void initPlayer(GameObject &player);
     bool isTitlePage();
     bool isGameScene();
     void setTitlePage(bool status);

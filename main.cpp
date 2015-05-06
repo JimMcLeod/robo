@@ -29,11 +29,6 @@ SDL_Surface* playerGFX[4][8];
 
 GameObject gameObjects[5];
 
-void test()
-{
-    printf("TEST\n\n");
-}
-
 int main (int argc, char** argv)
 {
     // initialize SDL video
@@ -42,10 +37,6 @@ int main (int argc, char** argv)
         printf("Unable to init SDL: %s\n", SDL_GetError());
         return 1;
     }
-
-    // Test fuction call from sruct
-    gameObjects[0].update = &test;
-    gameObjects[0].update();
 
     // make sure SDL cleans up before exit
     atexit(SDL_Quit);
@@ -72,12 +63,13 @@ int main (int argc, char** argv)
     SDL_ShowCursor(SDL_DISABLE);
 
     // Init game
-    // MESS
+    for (unsigned int i=0; i<5; i++)
+    {
+        gameObjects[i].active = false;
+    }
     GameStatus gameStatus;
     gameStatus.init();
-    GameObject player=gameObjects[0];
-    player=gameStatus.initPlayer(player);
-    player.direction = 0;
+    gameStatus.initPlayer(gameObjects[0]);
 
     bool inpFRPressed = false;
 
@@ -87,7 +79,7 @@ int main (int argc, char** argv)
     {
         // input
         getInput();
-        actOnInput(player);
+        actOnInput(gameObjects[0]);
 
         // DRAWING STARTS HERE
 
@@ -107,7 +99,16 @@ int main (int argc, char** argv)
         if (gameStatus.isGameScene())
         {
             SDL_BlitSurface(backgroundGFX, 0, screen, &originRect);
-            sprite(player);
+
+            sprite(gameObjects[0]);
+            /*for (unsigned int i=0; i<sizeof(gameObjects); i++)
+            {
+                GameObject obj = gameObjects[i];
+                if (obj.active == true)
+                {
+                    sprite(obj);
+                }
+            }*/
         }
 
         // DRAWING ENDS HERE

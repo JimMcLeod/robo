@@ -56,22 +56,20 @@ void actOnInput(GameObject &player)
         player.y--;
     if (inpDW)
         player.y++;
-    if (inpLF)
+    if (inpRG)
     {
         player.direction += player.turnRate;
         if (player.direction >= player.noOfDirections)
         {
             player.direction -= player.noOfDirections;
         }
-        printf("left:%f\n%f\n\n", player.noOfDirections, player.direction);
     }
-    if (inpRG)
+    if (inpLF)
     {
         if (player.direction <= 0)
         {
             player.direction += player.noOfDirections;
         }
         player.direction -= player.turnRate;
-        printf("right:%f\n%f\n\n", player.noOfDirections, player.direction);
     }
 }

@@ -18,7 +18,6 @@ void sprite(GameObject &gameObject)
     // Render object
     switch (gameObject.type)
     {
-        printf("sprite:%f\n%f\n\n", gameObject.noOfDirections, gameObject.direction);
         case typePlayer:
             // Set object position
             int direction = int(gameObject.direction);
