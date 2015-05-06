@@ -21,6 +21,7 @@ void initTitlePage()
 
     gameObjects[0] = titlePage;
 }
+
 void initBackground(GameObject &background)
 {
     background.active = true;
@@ -28,6 +29,7 @@ void initBackground(GameObject &background)
     background.update = updateBackground;
     background.render = renderBackground;
 }
+
 void initPlayer(GameObject &player)
 {
     player.active = true;
