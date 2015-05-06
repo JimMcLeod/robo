@@ -1,5 +1,7 @@
 #include "init.h"
 #include "enums.h"
+#include "sprite.h"
+#include "update_player.h"
 
 void GameStatus::init()
 {
@@ -12,8 +14,12 @@ void GameStatus::initPlayer(GameObject &player)
     player.active = true;
     player.id = 0;
     player.type = typePlayer;
+
+    player.senseless = false;
+    player.thrustAvailable = true;
+
     player.x = 400;
-    player.y = 220;
+    player.y = 240;
     player.speed = 0;
     player.topSpeed = 10;
     player.acceleration = 0.3;
@@ -24,6 +30,9 @@ void GameStatus::initPlayer(GameObject &player)
     player.animFrame = 0;
     player.animUpdate = 0.2;
     player.animNoOfFrames = 4;
+
+    player.render = sprite;
+    player.update = updatePlayer;
 }
 
 bool GameStatus::isTitlePage()

@@ -8,6 +8,7 @@
 #include "input.h"
 #include "game_object.h"
 #include "sprite.h"
+#include "update_player.h"
 
 SDL_Surface* screen;
 
@@ -29,11 +30,11 @@ GameObject gameObjects[noOfGameObjects];
 float xDir[8];
 float yDir[8];
 
-void firstInit();
+void initialisation();
 
 int main (int argc, char** argv)
 {
-    firstInit();
+    initialisation();
 
     // initialize SDL video
     if (SDL_Init( SDL_INIT_VIDEO) < 0 )
@@ -84,40 +85,6 @@ int main (int argc, char** argv)
     {
         // input
         getInput();
-        actOnInput(gameObjects[0]);
-        // Check speed within top bound
-        if (gameObjects[0].speed > gameObjects[0].topSpeed)
-        {
-            gameObjects[0].speed = gameObjects[0].topSpeed;
-        }
-        // Update position
-        gameObjects[0].x += xDir[int(gameObjects[0].direction)] * gameObjects[0].speed;
-        gameObjects[0].y += yDir[int(gameObjects[0].direction)] * gameObjects[0].speed;
-        // Check in bounds
-        if (gameObjects[0].x < 0)
-        {
-            gameObjects[0].x = 0;
-        }
-        if (gameObjects[0].x > screen->w)
-        {
-            gameObjects[0].x = screen->w;
-        }
-        if (gameObjects[0].y < 0)
-        {
-            gameObjects[0].y = 0;
-        }
-        if (gameObjects[0].y > screen->h)
-        {
-            gameObjects[0].y = screen->h;
-        }
-        // Friction
-        gameObjects[0].speed -= gameObjects[0].friction;
-        if (gameObjects[0].speed < 0)
-        {
-            gameObjects[0].speed = 0;
-        }
-
-        // DRAWING STARTS HERE
 
         // Render title screen
         if (gameStatus.isTitlePage())
@@ -136,11 +103,13 @@ int main (int argc, char** argv)
         if (gameStatus.isGameScene())
         {
             SDL_BlitSurface(backgroundGFX, 0, screen, &originRect);
+            // Update and render game objects
             for (unsigned int i=0; i<noOfGameObjects; i++)
             {
                 if (gameObjects[i].active == true)
                 {
-                    sprite(gameObjects[i]);
+                    gameObjects[i].update(gameObjects[i]);
+                    gameObjects[i].render(gameObjects[i]);
                 }
             }
         }
@@ -165,7 +134,7 @@ int main (int argc, char** argv)
     return 0;
 }
 
-void firstInit()
+void initialisation()
 {
     // Set up movement table
     float dirInc = 360/8;

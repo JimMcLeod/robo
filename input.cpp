@@ -95,7 +95,7 @@ void actOnInput(GameObject &player)
     }
     inpLFPressed = inpLF;
     inpRGPressed = inpRG;
-    if (inpF2)
+    if (inpF2 && player.thrustAvailable)
     {
         player.speed += player.acceleration;
     }
