@@ -7,8 +7,8 @@ void updateTitlePage(GameObject &titlePage)
 {
     if ((!inpF1 && inpF1Pressed) || (!inpF2 && inpF2Pressed))
     {
+        initBackground(gameObjects[0]); // always make this [0]
         initPlayer(gameObjects[1]);
-        initBackground(gameObjects[0]);
     }
     inpF1Pressed = inpF1;
     inpF2Pressed = inpF2;

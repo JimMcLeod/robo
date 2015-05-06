@@ -25,43 +25,15 @@ float xDir[8];
 float yDir[8];
 
 void initialisation();
+void freeResources();
 
 int main (int argc, char** argv)
 {
     initialisation();
 
-    // initialize SDL video
-    if (SDL_Init( SDL_INIT_VIDEO) < 0 )
-    {
-        printf("Unable to init SDL: %s\n", SDL_GetError());
-        return 1;
-    }
-
-    // make sure SDL cleans up before exit
-    atexit(SDL_Quit);
-
-    // create a new window
-    screen = SDL_SetVideoMode(800, 480, 16,
-            SDL_HWSURFACE|SDL_DOUBLEBUF|SDL_FULLSCREEN);
-
-    if (!screen)
-    {
-        printf("Unable to set full screen video: %s\n", SDL_GetError());
-        return 1;
-    }
-
-    // load image files
     loadImages();
 
-    // Disable cursor
-    SDL_ShowCursor(SDL_DISABLE);
-
-    // Init game
-    for (unsigned int i=0; i<noOfGameObjects; i++)
-    {
-        gameObjects[i].active = false;
-    }
-    initTitlePage();
+    initGame();
 
     // program main loop
     done = false;
@@ -80,7 +52,49 @@ int main (int argc, char** argv)
         SDL_Flip(screen);
     }
 
-    // free loaded images
+    freeResources();
+
+    printf("Exited cleanly\n");
+    return 0;
+}
+
+void initialisation()
+{
+    // initialize SDL video
+    if (SDL_Init( SDL_INIT_VIDEO) < 0 )
+    {
+        printf("Unable to init SDL: %s\n", SDL_GetError());
+        return;
+    }
+
+    // make sure SDL cleans up before exit
+    atexit(SDL_Quit);
+
+    // create screen
+    screen = SDL_SetVideoMode(800, 480, 16,
+            SDL_HWSURFACE|SDL_DOUBLEBUF|SDL_FULLSCREEN);
+    if (!screen)
+    {
+        printf("Unable to set full screen video: %s\n", SDL_GetError());
+        return;
+    }
+
+    // Disable cursor
+    SDL_ShowCursor(SDL_DISABLE);
+
+    // Set up 8 directional movement table
+    float dirInc = 360/8;
+    for (int i=0; i<8; i++)
+    {
+        int j = (-i + 4) & 7;
+        xDir[i] = sin(j*dirInc*3.1415/180);
+        yDir[i] = cos(j*dirInc*3.1415/180);
+    }
+}
+
+void freeResources()
+{
+    // Free images
     SDL_FreeSurface(titleGFX);
     SDL_FreeSurface(backgroundGFX);
     for (int i=0; i<4; i++)
@@ -91,19 +105,4 @@ int main (int argc, char** argv)
         }
     }
 
-    // all is well ;)
-    printf("Exited cleanly\n");
-    return 0;
-}
-
-void initialisation()
-{
-    // Set up movement table
-    float dirInc = 360/8;
-    for (int i=0; i<8; i++)
-    {
-        int j = (-i + 4) & 7;
-        xDir[i] = sin(j*dirInc*3.1415/180);
-        yDir[i] = cos(j*dirInc*3.1415/180);
-    }
 }

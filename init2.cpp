@@ -2,6 +2,11 @@
 
 void initGame()
 {
+    // Clear game objecta
+    for (unsigned int i=0; i<noOfGameObjects; i++)
+    {
+        gameObjects[i].active = false;
+    }
     initTitlePage();
 }
 
