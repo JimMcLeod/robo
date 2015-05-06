@@ -72,4 +72,9 @@ void actOnInput(GameObject &player)
         }
         player.direction -= player.turnRate;
     }
+    if (inpFR)
+    {
+        player.x += xDir[int(player.direction)];
+        player.y += yDir[int(player.direction)];
+    }
 }

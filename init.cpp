@@ -6,6 +6,7 @@ void GameStatus::init()
     titlePage = true;
     gameScene = false;
 }
+
 void GameStatus::initPlayer(GameObject &player)
 {
     player.active = true;
@@ -13,7 +14,7 @@ void GameStatus::initPlayer(GameObject &player)
     player.type = typePlayer;
     player.x = 400;
     player.y = 200;
-    player.direction = 6;
+    player.direction = 0;
     player.turnRate = 0.333;
     player.noOfDirections = 8;
     player.animFrame = 0;

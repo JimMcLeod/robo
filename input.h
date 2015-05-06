@@ -10,6 +10,9 @@ extern bool inpLF;
 extern bool inpRG;
 extern bool inpFR;
 
+extern float xDir[8];
+extern float yDir[8];
+
 extern SDL_Rect playerRect;
 
 extern bool done;

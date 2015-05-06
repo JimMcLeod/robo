@@ -12,7 +12,6 @@ void sprite(GameObject &gameObject)
         gameObject.animFrame -= gameObject.animNoOfFrames;
     }
     int animFrame = int(gameObject.animFrame);
-
     SDL_Rect gameObjectRect;
 
     // Render object

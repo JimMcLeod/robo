@@ -6,6 +6,7 @@
 
 #include <SDL/SDL.h>
 #include <SDL/SDL_image.h>
+#include <math.h>
 #include "enums.h"
 #include "init.h"
 #include "file.h"
@@ -29,8 +30,15 @@ SDL_Surface* playerGFX[4][8];
 
 GameObject gameObjects[5];
 
+float xDir[8];
+float yDir[8];
+
+void firstInit();
+
 int main (int argc, char** argv)
 {
+    firstInit();
+
     // initialize SDL video
     if (SDL_Init( SDL_INIT_VIDEO) < 0 )
     {
@@ -100,27 +108,43 @@ int main (int argc, char** argv)
         {
             SDL_BlitSurface(backgroundGFX, 0, screen, &originRect);
 
-            sprite(gameObjects[0]);
-            /*for (unsigned int i=0; i<sizeof(gameObjects); i++)
+            for (unsigned int i=0; i<5; i++)
             {
-                GameObject obj = gameObjects[i];
-                if (obj.active == true)
+                if (gameObjects[i].active == true)
                 {
-                    sprite(obj);
+                    sprite(gameObjects[i]);
                 }
-            }*/
+            }
         }
 
         // DRAWING ENDS HERE
         SDL_Flip(screen);
     }
 
-    // free loaded bitmap
+    // free loaded images
     SDL_FreeSurface(titleGFX);
     SDL_FreeSurface(backgroundGFX);
-    // MESS no freeing up of player surfaces
+    for (int i=0; i<4; i++)
+    {
+        for (int j=0; j<8; j++)
+        {
+            SDL_FreeSurface(playerGFX[i][j]);
+        }
+    }
 
     // all is well ;)
     printf("Exited cleanly\n");
     return 0;
+}
+
+void firstInit()
+{
+    // Set up movement table
+    float dirInc = 360/8;
+    for (int i=0; i<8; i++)
+    {
+        int j = -i + 4 & 7;
+        xDir[i] = sin(j*dirInc*3.1415/180);
+        yDir[i] = cos(j*dirInc*3.1415/180);
+    }
 }
