@@ -1,14 +1,8 @@
 #include <cstdlib>
-#include <SDL/SDL.h>
-#include <SDL/SDL_image.h>
-#include <math.h>
-#include "enums.h"
-#include "init.h"
+#include "init2.h"
 #include "file.h"
 #include "input.h"
 #include "game_object.h"
-#include "sprite.h"
-#include "update_player.h"
 
 SDL_Surface* screen;
 
@@ -59,11 +53,6 @@ int main (int argc, char** argv)
     // load image files
     loadImages();
 
-    // position 0. 0 rect
-    SDL_Rect originRect;
-    originRect.x = 0;
-    originRect.y = 0;
-
     // Disable cursor
     SDL_ShowCursor(SDL_DISABLE);
 
@@ -72,49 +61,22 @@ int main (int argc, char** argv)
     {
         gameObjects[i].active = false;
     }
-    GameStatus gameStatus;
-    gameStatus.init();
-    gameStatus.initPlayer(gameObjects[0]);
-
-    bool inpF1Pressed = false;
-    bool inpF2Pressed = false;
+    initTitlePage();
 
     // program main loop
     done = false;
     while (!done)
     {
-        // input
         getInput();
 
-        // Render title screen
-        if (gameStatus.isTitlePage())
+        for (unsigned int i=0; i<noOfGameObjects; i++)
         {
-            SDL_BlitSurface(titleGFX, 0, screen, &originRect);
-            if ((!inpF1 && inpF1Pressed) || (!inpF2 && inpF2Pressed))
+            if (gameObjects[i].active == true)
             {
-                gameStatus.setGameScene(true);
-                gameStatus.setTitlePage(true);
-            }
-            inpF1Pressed = inpF1;
-            inpF2Pressed = inpF2;
-        }
-
-        // Render game
-        if (gameStatus.isGameScene())
-        {
-            SDL_BlitSurface(backgroundGFX, 0, screen, &originRect);
-            // Update and render game objects
-            for (unsigned int i=0; i<noOfGameObjects; i++)
-            {
-                if (gameObjects[i].active == true)
-                {
-                    gameObjects[i].update(gameObjects[i]);
-                    gameObjects[i].render(gameObjects[i]);
-                }
+                gameObjects[i].update(gameObjects[i]);
+                gameObjects[i].render(gameObjects[i]);
             }
         }
-
-        // DRAWING ENDS HERE
         SDL_Flip(screen);
     }
 

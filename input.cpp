@@ -1,5 +1,4 @@
 #include "input.h"
-#include <math.h>
 
 void getInput()
 {
@@ -55,7 +54,7 @@ void getInput()
     }
 }
 
-bool inpLFPressed = false;
+/*bool inpLFPressed = false;
 bool inpRGPressed = false;
 void actOnInput(GameObject &player)
 {
@@ -99,4 +98,4 @@ void actOnInput(GameObject &player)
     {
         player.speed += player.acceleration;
     }
-}
+}*/

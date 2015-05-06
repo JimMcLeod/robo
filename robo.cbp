@@ -36,17 +36,23 @@
 			<Add option="`sdl-config --libs`" />
 			<Add option="-lSDL_image" />
 		</Linker>
+		<Unit filename="background.cpp" />
+		<Unit filename="background.h" />
 		<Unit filename="cb.bmp" />
 		<Unit filename="enums.h" />
 		<Unit filename="file.cpp" />
 		<Unit filename="file.h" />
 		<Unit filename="init.cpp" />
 		<Unit filename="init.h" />
+		<Unit filename="init2.cpp" />
+		<Unit filename="init2.h" />
 		<Unit filename="input.cpp" />
 		<Unit filename="input.h" />
 		<Unit filename="main.cpp" />
 		<Unit filename="sprite.cpp" />
 		<Unit filename="sprite.h" />
+		<Unit filename="title_page.cpp" />
+		<Unit filename="title_page.h" />
 		<Unit filename="update_player.cpp" />
 		<Unit filename="update_player.h" />
 		<Extensions>

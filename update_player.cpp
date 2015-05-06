@@ -1,5 +1,48 @@
 #include "update_player.h"
 
+bool inpLFPressed = false;
+bool inpRGPressed = false;
+
+void actOnInput(GameObject &player)
+{
+    if (inpRG && !inpRGPressed)
+    {
+        player.direction = floor(player.direction + 1);
+        if (player.direction >= player.noOfDirections)
+        {
+            player.direction -= player.noOfDirections;
+        }
+    }
+    if (inpRG && inpRGPressed) {
+        player.direction += player.turnRate;
+        if (player.direction >= player.noOfDirections)
+        {
+            player.direction -= player.noOfDirections;
+        }
+    }
+    if (inpLF && !inpLFPressed)
+    {
+        player.direction = floor(player.direction) - player.turnRate;
+        if (player.direction < 0)
+        {
+            player.direction = player.noOfDirections - player.turnRate;
+        }
+    }
+    if (inpLF && inpLFPressed) {
+        if (player.direction <= 0)
+        {
+            player.direction += player.noOfDirections;
+        }
+        player.direction -= player.turnRate;
+    }
+    inpLFPressed = inpLF;
+    inpRGPressed = inpRG;
+    if (inpF2 && player.thrustAvailable)
+    {
+        player.speed += player.acceleration;
+    }
+}
+
 void updatePlayer(GameObject &player)
 {
     if (!player.senseless)

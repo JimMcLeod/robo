@@ -1,15 +1,29 @@
-#include "init.h"
-#include "enums.h"
-#include "sprite.h"
-#include "update_player.h"
+#include "init2.h"
 
-void GameStatus::init()
+void initGame()
 {
-    titlePage = true;
-    gameScene = false;
+    initTitlePage();
 }
 
-void GameStatus::initPlayer(GameObject &player)
+void initTitlePage()
+{
+    GameObject titlePage;
+
+    titlePage.active = true;
+    titlePage.type = typeTitlePage;
+    titlePage.update = updateTitlePage;
+    titlePage.render = renderTitlePage;
+
+    gameObjects[0] = titlePage;
+}
+void initBackground(GameObject &background)
+{
+    background.active = true;
+    background.type = typeBackground;
+    background.update = updateBackground;
+    background.render = renderBackground;
+}
+void initPlayer(GameObject &player)
 {
     player.active = true;
     player.id = 0;
@@ -33,24 +47,4 @@ void GameStatus::initPlayer(GameObject &player)
 
     player.render = sprite;
     player.update = updatePlayer;
-}
-
-bool GameStatus::isTitlePage()
-{
-    return titlePage;
-}
-
-bool GameStatus::isGameScene()
-{
-    return gameScene;
-}
-
-void GameStatus::setTitlePage(bool state)
-{
-    titlePage = state;
-}
-
-void GameStatus::setGameScene(bool state)
-{
-    gameScene = state;
 }

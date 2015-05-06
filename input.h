@@ -10,14 +10,13 @@ extern bool inpLF;
 extern bool inpRG;
 extern bool inpF1;
 extern bool inpF2;
+extern bool done;
 
 extern float xDir[8];
 extern float yDir[8];
 
 extern SDL_Rect playerRect;
 
-extern bool done;
-
 void getInput();
-void actOnInput(GameObject &player);
+
 #endif

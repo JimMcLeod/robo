@@ -4,7 +4,9 @@
 enum Type
 {
     typeNothing,
-    typePlayer
+    typePlayer,
+    typeTitlePage,
+    typeBackground
 };
 
 #endif
