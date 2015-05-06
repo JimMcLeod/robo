@@ -35,14 +35,14 @@ void loadPlayerGFX()
 {
     for (int i=1; i<5; i++)
     {
-        for (int j=1; j<9; j++)
+        for (int j=0; j<8; j++)
         {
             std::string filename="img/pl";
             filename.append(1, static_cast<char>(i+48));
-            filename.append("_");
+            filename.append("_0");
             filename.append(1, static_cast<char>(j+48));
-            filename.append(".bmp");
-            playerGFX[i-1][j-1] = loadSurface(filename);
+            filename.append(".png");
+            playerGFX[i-1][j] = loadSurface(filename);
         }
     }
 }

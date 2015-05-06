@@ -18,9 +18,6 @@ struct GameObject
     float animFrame;
     float animUpdate;
     float animNoOfFrames;
-
-    void (* update)();
-    void (* render)();
 };
 #endif
 
