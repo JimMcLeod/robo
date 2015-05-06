@@ -1,4 +1,5 @@
 #include "input.h"
+#include <math.h>
 
 void getInput()
 {
@@ -26,8 +27,10 @@ void getInput()
                     inpLF = true;
                 if (event.key.keysym.sym == SDLK_RIGHT)
                     inpRG = true;
+                if (event.key.keysym.sym == SDLK_PAGEDOWN)
+                    inpF1 = true;
                 if (event.key.keysym.sym == SDLK_END)
-                    inpFR = true;
+                    inpF2 = true;
                 break;
 
             }
@@ -41,8 +44,10 @@ void getInput()
                     inpLF = false;
                 if (event.key.keysym.sym == SDLK_RIGHT)
                     inpRG = false;
+                if (event.key.keysym.sym == SDLK_PAGEDOWN)
+                    inpF1 = false;
                 if (event.key.keysym.sym == SDLK_END)
-                    inpFR = false;
+                    inpF2 = false;
                 break;
 
             }
@@ -50,31 +55,48 @@ void getInput()
     }
 }
 
+bool inpLFPressed = false;
+bool inpRGPressed = false;
 void actOnInput(GameObject &player)
 {
     if (inpUP)
         player.y--;
     if (inpDW)
         player.y++;
-    if (inpRG)
+    if (inpRG && !inpRGPressed)
     {
+        player.direction = floor(player.direction + 1);
+        if (player.direction >= player.noOfDirections)
+        {
+            player.direction -= player.noOfDirections;
+        }
+    }
+    if (inpRG && inpRGPressed) {
         player.direction += player.turnRate;
         if (player.direction >= player.noOfDirections)
         {
             player.direction -= player.noOfDirections;
         }
     }
-    if (inpLF)
+    if (inpLF && !inpLFPressed)
     {
+        player.direction = floor(player.direction) - player.turnRate;
+        if (player.direction < 0)
+        {
+            player.direction = player.noOfDirections - player.turnRate;
+        }
+    }
+    if (inpLF && inpLFPressed) {
         if (player.direction <= 0)
         {
             player.direction += player.noOfDirections;
         }
         player.direction -= player.turnRate;
     }
-    if (inpFR)
+    inpLFPressed = inpLF;
+    inpRGPressed = inpRG;
+    if (inpF2)
     {
-        player.x += xDir[int(player.direction)];
-        player.y += yDir[int(player.direction)];
+        player.speed += player.acceleration;
     }
 }

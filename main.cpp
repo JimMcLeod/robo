@@ -1,9 +1,4 @@
-#ifdef __cplusplus
-    #include <cstdlib>
-#else
-    #include <stdlib.h>
-#endif
-
+#include <cstdlib>
 #include <SDL/SDL.h>
 #include <SDL/SDL_image.h>
 #include <math.h>
@@ -15,20 +10,21 @@
 #include "sprite.h"
 
 SDL_Surface* screen;
+
 bool inpUP;
 bool inpDW;
 bool inpLF;
 bool inpRG;
-bool inpFR;
+bool inpF1;
+bool inpF2;
 bool done;
-
-SDL_Rect playerRect;
 
 SDL_Surface* titleGFX;
 SDL_Surface* backgroundGFX;
 SDL_Surface* playerGFX[4][8];
 
-GameObject gameObjects[5];
+const int noOfGameObjects = 5;
+GameObject gameObjects[noOfGameObjects];
 
 float xDir[8];
 float yDir[8];
@@ -71,7 +67,7 @@ int main (int argc, char** argv)
     SDL_ShowCursor(SDL_DISABLE);
 
     // Init game
-    for (unsigned int i=0; i<5; i++)
+    for (unsigned int i=0; i<noOfGameObjects; i++)
     {
         gameObjects[i].active = false;
     }
@@ -79,7 +75,8 @@ int main (int argc, char** argv)
     gameStatus.init();
     gameStatus.initPlayer(gameObjects[0]);
 
-    bool inpFRPressed = false;
+    bool inpF1Pressed = false;
+    bool inpF2Pressed = false;
 
     // program main loop
     done = false;
@@ -88,6 +85,37 @@ int main (int argc, char** argv)
         // input
         getInput();
         actOnInput(gameObjects[0]);
+        // Check speed within top bound
+        if (gameObjects[0].speed > gameObjects[0].topSpeed)
+        {
+            gameObjects[0].speed = gameObjects[0].topSpeed;
+        }
+        // Update position
+        gameObjects[0].x += xDir[int(gameObjects[0].direction)] * gameObjects[0].speed;
+        gameObjects[0].y += yDir[int(gameObjects[0].direction)] * gameObjects[0].speed;
+        // Check in bounds
+        if (gameObjects[0].x < 0)
+        {
+            gameObjects[0].x = 0;
+        }
+        if (gameObjects[0].x > screen->w)
+        {
+            gameObjects[0].x = screen->w;
+        }
+        if (gameObjects[0].y < 0)
+        {
+            gameObjects[0].y = 0;
+        }
+        if (gameObjects[0].y > screen->h)
+        {
+            gameObjects[0].y = screen->h;
+        }
+        // Friction
+        gameObjects[0].speed -= gameObjects[0].friction;
+        if (gameObjects[0].speed < 0)
+        {
+            gameObjects[0].speed = 0;
+        }
 
         // DRAWING STARTS HERE
 
@@ -95,20 +123,20 @@ int main (int argc, char** argv)
         if (gameStatus.isTitlePage())
         {
             SDL_BlitSurface(titleGFX, 0, screen, &originRect);
-            if (!inpFR && inpFRPressed)
+            if ((!inpF1 && inpF1Pressed) || (!inpF2 && inpF2Pressed))
             {
                 gameStatus.setGameScene(true);
                 gameStatus.setTitlePage(true);
             }
-            inpFRPressed = inpFR;
+            inpF1Pressed = inpF1;
+            inpF2Pressed = inpF2;
         }
 
         // Render game
         if (gameStatus.isGameScene())
         {
             SDL_BlitSurface(backgroundGFX, 0, screen, &originRect);
-
-            for (unsigned int i=0; i<5; i++)
+            for (unsigned int i=0; i<noOfGameObjects; i++)
             {
                 if (gameObjects[i].active == true)
                 {
@@ -143,7 +171,7 @@ void firstInit()
     float dirInc = 360/8;
     for (int i=0; i<8; i++)
     {
-        int j = -i + 4 & 7;
+        int j = (-i + 4) & 7;
         xDir[i] = sin(j*dirInc*3.1415/180);
         yDir[i] = cos(j*dirInc*3.1415/180);
     }

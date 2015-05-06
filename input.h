@@ -8,7 +8,8 @@ extern bool inpUP;
 extern bool inpDW;
 extern bool inpLF;
 extern bool inpRG;
-extern bool inpFR;
+extern bool inpF1;
+extern bool inpF2;
 
 extern float xDir[8];
 extern float yDir[8];

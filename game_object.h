@@ -13,6 +13,9 @@ struct GameObject
     float turnRate;
     float noOfDirections;
     float speed;
+    float topSpeed;
+    float acceleration;
+    float friction;
     float width;
     float height;
     float animFrame;

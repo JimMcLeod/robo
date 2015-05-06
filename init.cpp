@@ -13,9 +13,13 @@ void GameStatus::initPlayer(GameObject &player)
     player.id = 0;
     player.type = typePlayer;
     player.x = 400;
-    player.y = 200;
+    player.y = 220;
+    player.speed = 0;
+    player.topSpeed = 10;
+    player.acceleration = 0.3;
+    player.friction = 0.2;
     player.direction = 0;
-    player.turnRate = 0.333;
+    player.turnRate = 0.2;
     player.noOfDirections = 8;
     player.animFrame = 0;
     player.animUpdate = 0.2;
