@@ -42,8 +42,6 @@
 		<Unit filename="enums.h" />
 		<Unit filename="file.cpp" />
 		<Unit filename="file.h" />
-		<Unit filename="init.cpp" />
-		<Unit filename="init.h" />
 		<Unit filename="init2.cpp" />
 		<Unit filename="init2.h" />
 		<Unit filename="input.cpp" />

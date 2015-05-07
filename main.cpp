@@ -24,6 +24,11 @@ GameObject gameObjects[noOfGameObjects];
 float xDir[8];
 float yDir[8];
 
+const int FPS = 30;
+Uint32 waitTime = 1000.0f/32;
+Uint32 frameStartTime = 0;
+Sint32 delayTime;
+
 void initialisation();
 void freeResources();
 
@@ -50,6 +55,11 @@ int main (int argc, char** argv)
             }
         }
         SDL_Flip(screen);
+
+        delayTime = waitTime - (SDL_GetTicks() - frameStartTime);
+        if (delayTime > 0)
+            SDL_Delay((Uint32)delayTime);
+        frameStartTime = SDL_GetTicks();
     }
 
     freeResources();
