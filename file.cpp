@@ -35,6 +35,7 @@ void loadImages()
     backgroundGFX = loadSurface("img/background.jpg");
     bitmapFont = loadSurface("img/font.png");
     bitmapFontBlack = loadSurface("img/font_black.png");
+    bitmapFontHighlight = loadSurface("img/font_highlight.png");
     loadPlayerGFX();
 }
 

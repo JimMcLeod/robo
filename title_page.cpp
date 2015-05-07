@@ -7,7 +7,7 @@ void updateTitlePage(GameObject &titlePage)
 {
     if ((!inpF1 && inpF1Pressed) || (!inpF2 && inpF2Pressed))
     {
-        initBackground(gameObjects[0]); // always make this [0]
+        initBackground(gameObjects[0]); // always make background [0] so it get drawn first
         initPlayer(gameObjects[1]);
     }
     inpF1Pressed = inpF1;
@@ -23,6 +23,6 @@ void renderTitlePage(GameObject &titlePage)
 
     SDL_BlitSurface(titleGFX, 0, screen, &originRect);
 
-    drawBitmapString(30, 50, "Flying Saucer\nAttack");
-    drawBitmapString(0, 400, "\tPRESS FIRE");
+    drawBitmapString(30, 50, "\vFlying Saucer\nAttack");
+    drawBitmapString(0, 400, "\r\tPRESS FIRE");
 }

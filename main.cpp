@@ -19,6 +19,7 @@ SDL_Surface* backgroundGFX;
 SDL_Surface* playerGFX[4][8];
 SDL_Surface* bitmapFont;
 SDL_Surface* bitmapFontBlack;
+SDL_Surface* bitmapFontHighlight;
 
 const int noOfGameObjects = 5;
 GameObject gameObjects[noOfGameObjects];

@@ -6,6 +6,8 @@
 #include <string>
 
 extern SDL_Surface* bitmapFont;
+extern SDL_Surface* bitmapFontBlack;
+extern SDL_Surface* bitmapFontHighlight;
 extern SDL_Surface* screen;
 
 void drawBitmapString(int x, int y, std::string output);
