@@ -3,8 +3,8 @@
 void drawBitmapString(int x, int y, std::string output)
 {
     SDL_Rect character;
-    character.h = 48;
-    character.w = 48;
+    character.h = 16;
+    character.w = 16;
     SDL_Rect position;
     position.x = x;
     position.y = y;
@@ -12,27 +12,27 @@ void drawBitmapString(int x, int y, std::string output)
 
     for (int i=0; i<output.length(); i++)
     {
-        int c = int(output[i])-32;
+        int c = int(output[i]);
         switch (c)
         {
-            case 9-32: // tab (centre text)
-                position.x = (screen->w - (output.length() * 48)) /2;
+            case 9: // tab (centre text)
+                position.x = (screen->w - (output.length() * 16)) /2;
                 break;
 
-            case 10-32: // newline
+            case 10: // newline
                 position.x = newline;
-                position.y += 48;
+                position.y += 16;
                 break;
 
             default:
-                int cx = (c & 15) * 48;
-                int cy = (c & 240) / 16 * 48;
+                int cx = (c & 15) * 16;
+                int cy = c & 240;
                 character.x = cx;
                 character.y = cy;
 
                 SDL_BlitSurface(bitmapFont, &character, screen, &position);
 
-                position.x += 48;
+                position.x += 16;
                 break;
         }
     }

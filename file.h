@@ -13,6 +13,7 @@ extern SDL_Surface* titleGFX;
 extern SDL_Surface* backgroundGFX;
 extern SDL_Surface* playerGFX[4][8];
 extern SDL_Surface* bitmapFont;
+extern SDL_Surface* bitmapFontBlack;
 
 void loadImages();
 void loadPlayerGFX();
