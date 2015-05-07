@@ -12,7 +12,6 @@ void drawBitmapString(int x, int y, std::string output)
 
     for (int i=0; i<output.length(); i++)
     {
-        printf("c:%c - %i\n", output[i], output[i]);
         int c = int(output[i])-32;
         switch (c)
         {

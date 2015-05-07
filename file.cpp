@@ -1,6 +1,6 @@
 #include "file.h"
 
-SDL_Surface* loadSurface(std::string path)
+SDL_Surface* loadSurface(std::string path, int r, int g, int b)
 {
 	//The final optimized image
 	SDL_Surface* optimizedSurface = NULL;
@@ -15,7 +15,7 @@ SDL_Surface* loadSurface(std::string path)
 		if (optimizedSurface != NULL)
 		{
 		    // Set transparency
-			Uint32 colorkey = SDL_MapRGB(optimizedSurface->format, 0xFF, 0, 0xFF);
+			Uint32 colorkey = SDL_MapRGB(optimizedSurface->format, r, g, b);
 			SDL_SetColorKey(optimizedSurface, SDL_SRCCOLORKEY, colorkey);
 		}
 		//Get rid of old loaded surface
@@ -24,11 +24,16 @@ SDL_Surface* loadSurface(std::string path)
     return optimizedSurface;
 }
 
+SDL_Surface* loadSurface(std::string path)
+{
+    return loadSurface(path, 0xFF, 0, 0xFF);
+}
+
 void loadImages()
 {
     titleGFX = loadSurface("img/title.png");
     backgroundGFX = loadSurface("img/background.jpg");
-    bitmapFont = loadSurface("img/font.png");
+    bitmapFont = loadSurface("img/font.png", 0, 0, 0);
     loadPlayerGFX();
 }
 
