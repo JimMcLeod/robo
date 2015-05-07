@@ -6,7 +6,11 @@ enum Type
     typeNothing,
     typePlayer,
     typeTitlePage,
-    typeBackground
+    typeBackground,
+    typeSaucerDrone,
+    typeSaucerPointer,
+    typeSaucerHomer,
+    typeSaucerBaiter
 };
 
 #endif
