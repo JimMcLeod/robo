@@ -17,6 +17,7 @@ bool done;
 SDL_Surface* titleGFX;
 SDL_Surface* backgroundGFX;
 SDL_Surface* playerGFX[4][8];
+SDL_Surface* bitmapFont;
 
 const int noOfGameObjects = 5;
 GameObject gameObjects[noOfGameObjects];
@@ -25,7 +26,7 @@ float xDir[8];
 float yDir[8];
 
 const int FPS = 30;
-Uint32 waitTime = 1000.0f/32;
+Uint32 waitTime = 1000.0f/FPS;
 Uint32 frameStartTime = 0;
 Sint32 delayTime;
 

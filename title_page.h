@@ -5,6 +5,8 @@
 #include "init2.h"
 #include <SDL/SDL.h>
 #include <SDL/SDL_image.h>
+#include <string>
+#include "bitmap_font.h"
 
 extern SDL_Surface* screen;
 
