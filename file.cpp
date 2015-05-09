@@ -33,6 +33,7 @@ void loadImages()
 {
     titleGFX = loadSurface("img/title.png");
     backgroundGFX = loadSurface("img/background.jpg");
+    bulletGFX = loadSurface("img/bullet.png");
     bitmapFont = loadSurface("img/font.png");
     bitmapFontBlack = loadSurface("img/font_black.png");
     bitmapFontHighlight = loadSurface("img/font_highlight.png");

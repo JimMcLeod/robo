@@ -15,5 +15,7 @@ void initGame();
 void initTitlePage();
 void initPlayer(GameObject &player);
 void initBackground(GameObject &background);
+void clearGameObject(GameObject &GameObject);
+void insertGameObject(GameObject &GameObject);
 
 #endif

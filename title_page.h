@@ -17,6 +17,8 @@ extern bool inpRG;
 extern bool inpF1;
 extern bool inpF2;
 extern bool done;
+extern bool inpF1Pressed;
+extern bool inpF2Pressed;
 
 extern SDL_Surface* titleGFX;
 

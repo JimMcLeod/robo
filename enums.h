@@ -5,12 +5,16 @@ enum Type
 {
     typeNothing,
     typePlayer,
+
     typeTitlePage,
     typeBackground,
+
     typeSaucerDrone,
     typeSaucerPointer,
     typeSaucerHomer,
-    typeSaucerBaiter
+    typeSaucerBaiter,
+
+    typeBullet
 };
 
 #endif

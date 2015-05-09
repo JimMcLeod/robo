@@ -3,6 +3,7 @@
 
 #include "game_object.h"
 #include "input.h"
+#include "bullet.h"
 #include <math.h>
 
 extern bool inpUP;

@@ -12,16 +12,19 @@ bool inpLF;
 bool inpRG;
 bool inpF1;
 bool inpF2;
+bool inpF1Pressed = false;
+bool inpF2Pressed = false;
 bool done;
 
 SDL_Surface* titleGFX;
 SDL_Surface* backgroundGFX;
 SDL_Surface* playerGFX[4][8];
+SDL_Surface* bulletGFX;
 SDL_Surface* bitmapFont;
 SDL_Surface* bitmapFontBlack;
 SDL_Surface* bitmapFontHighlight;
 
-const int noOfGameObjects = 5;
+const int noOfGameObjects = 20;
 GameObject gameObjects[noOfGameObjects];
 
 float xDir[8];
@@ -114,7 +117,7 @@ void freeResources()
     SDL_FreeSurface(bitmapFont);
     SDL_FreeSurface(bitmapFontBlack);
     SDL_FreeSurface(bitmapFontHighlight);
-    
+
     for (int i=0; i<4; i++)
     {
         for (int j=0; j<8; j++)

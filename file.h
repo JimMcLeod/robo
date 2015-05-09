@@ -12,6 +12,7 @@ SDL_Surface* loadSurface(std::string path, int r, int g, int b);
 extern SDL_Surface* titleGFX;
 extern SDL_Surface* backgroundGFX;
 extern SDL_Surface* playerGFX[4][8];
+extern SDL_Surface* bulletGFX;
 extern SDL_Surface* bitmapFont;
 extern SDL_Surface* bitmapFontBlack;
 extern SDL_Surface* bitmapFontHighlight;

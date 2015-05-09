@@ -4,8 +4,9 @@
 #include <SDL/SDL.h>
 #include "game_object.h"
 
-extern GameObject gameObjects[5];
+extern GameObject gameObjects[];
 extern SDL_Surface* playerGFX[4][8];
+extern SDL_Surface* bulletGFX;
 extern SDL_Surface* screen;
 
 void sprite(GameObject &gameObject);

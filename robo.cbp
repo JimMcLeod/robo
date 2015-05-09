@@ -40,6 +40,8 @@
 		<Unit filename="background.h" />
 		<Unit filename="bitmap_font.cpp" />
 		<Unit filename="bitmap_font.h" />
+		<Unit filename="bullet.cpp" />
+		<Unit filename="bullet.h" />
 		<Unit filename="cb.bmp" />
 		<Unit filename="enums.h" />
 		<Unit filename="file.cpp" />

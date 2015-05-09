@@ -29,6 +29,10 @@ struct GameObject
     float animUpdate;
     float animNoOfFrames;
 
+    float fireReady;
+    float fireRate;
+    float fireReset;
+
     void (*render)(GameObject&);
     void (*update)(GameObject&);
 };

@@ -1,8 +1,5 @@
 #include "title_page.h"
 
-bool inpF1Pressed = false;
-bool inpF2Pressed = false;
-
 void updateTitlePage(GameObject &titlePage)
 {
     if ((!inpF1 && inpF1Pressed) || (!inpF2 && inpF2Pressed))

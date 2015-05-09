@@ -16,18 +16,9 @@ void updatePlayer(GameObject &player)
     {
         player.speed = player.topSpeed;
     }
-    if (player.speed < -player.topSpeed)
-    {
-        player.speed = -player.topSpeed;
-    }
     // Update position
-    if (player.verticalMovement)
-    {
-        player.y += yDir[int(player.direction)] * player.speed;
-    } else {
-        player.x += xDir[int(player.direction)] * player.speed;
-        player.y += yDir[int(player.direction)] * player.speed;
-    }
+    player.x += xDir[int(player.direction)] * player.speed;
+    player.y += yDir[int(player.direction)] * player.speed;
     // Check in bounds
     if (player.x < 0)
     {
@@ -112,8 +103,23 @@ void actOnInput(GameObject &player)
             player.speed += player.acceleration;
         }
     }
+    if (inpF1 && !inpF1Pressed)
+    {
+        initBullet(player.x, player.y, player.direction);
+        player.fireReady = player.fireReset;
+    }
+    if (inpF1 && inpF1Pressed) {
+        player.fireReady -= player.fireRate;
+        if (player.fireReady < 0)
+        {
+            initBullet(player.x, player.y, player.direction);
+            player.fireReady = player.fireReset;
+        }
+    }
+
     inpLFPressed = inpLF;
     inpRGPressed = inpRG;
     inpUPPressed = inpUP;
     inpDWPressed = inpDW;
+    inpF1Pressed = inpF1;
 }

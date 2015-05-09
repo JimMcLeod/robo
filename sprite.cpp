@@ -13,12 +13,14 @@ void sprite(GameObject &gameObject)
     }
     int animFrame = int(gameObject.animFrame);
     SDL_Rect gameObjectRect;
+    float xoffset;
+    float yoffset;
 
     // Render object
     switch (gameObject.type)
     {
         case typePlayer:
-            // Set object position
+            // Set object direction
             int direction;
             if (gameObject.verticalMovement)
             {
@@ -26,12 +28,22 @@ void sprite(GameObject &gameObject)
             } else {
                 direction = int(gameObject.direction);
             }
-            float xoffset=playerGFX[animFrame][direction]->w/2;
-            float yoffset=playerGFX[animFrame][direction]->h/2;
+            // Set object position
+            xoffset=playerGFX[animFrame][direction]->w/2;
+            yoffset=playerGFX[animFrame][direction]->h/2;
             gameObjectRect.x=gameObject.x-xoffset;
             gameObjectRect.y=gameObject.y-yoffset;
 
             SDL_BlitSurface(playerGFX[animFrame][direction], 0, screen, &gameObjectRect);
+            break;
+
+        case typeBullet:
+            xoffset=bulletGFX->w/2;
+            yoffset=bulletGFX->h/2;
+            gameObjectRect.x=gameObject.x-xoffset;
+            gameObjectRect.y=gameObject.y-yoffset;
+
+            SDL_BlitSurface(bulletGFX, 0, screen, &gameObjectRect);
             break;
     }
 }
