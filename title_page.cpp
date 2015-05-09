@@ -24,5 +24,5 @@ void renderTitlePage(GameObject &titlePage)
     SDL_BlitSurface(titleGFX, 0, screen, &originRect);
 
     drawBitmapString(30, 50, "\vFlying Saucer\nAttack");
-    drawBitmapString(0, 400, "\r\tPRESS FIRE");
+    drawBitmapString(0, 400, "\tPRESS FIRE");
 }

@@ -19,7 +19,13 @@ void sprite(GameObject &gameObject)
     {
         case typePlayer:
             // Set object position
-            int direction = int(gameObject.direction);
+            int direction;
+            if (gameObject.verticalMovement)
+            {
+                direction = 2;
+            } else {
+                direction = int(gameObject.direction);
+            }
             float xoffset=playerGFX[animFrame][direction]->w/2;
             float yoffset=playerGFX[animFrame][direction]->h/2;
             gameObjectRect.x=gameObject.x-xoffset;

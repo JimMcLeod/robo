@@ -59,6 +59,7 @@ int main (int argc, char** argv)
         }
         SDL_Flip(screen);
 
+        // FPS throttle
         delayTime = waitTime - (SDL_GetTicks() - frameStartTime);
         if (delayTime > 0)
             SDL_Delay((Uint32)delayTime);

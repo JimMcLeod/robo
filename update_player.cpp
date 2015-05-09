@@ -2,6 +2,8 @@
 
 bool inpLFPressed = false;
 bool inpRGPressed = false;
+bool inpUPPressed = false;
+bool inpDWPressed = false;
 
 void updatePlayer(GameObject &player)
 {
@@ -9,14 +11,23 @@ void updatePlayer(GameObject &player)
     {
         actOnInput(player);
     }
-    // Check speed within top bound
+    // Check speed within bounds
     if (player.speed > player.topSpeed)
     {
         player.speed = player.topSpeed;
     }
+    if (player.speed < -player.topSpeed)
+    {
+        player.speed = -player.topSpeed;
+    }
     // Update position
-    player.x += xDir[int(player.direction)] * player.speed;
-    player.y += yDir[int(player.direction)] * player.speed;
+    if (player.verticalMovement)
+    {
+        player.y += yDir[int(player.direction)] * player.speed;
+    } else {
+        player.x += xDir[int(player.direction)] * player.speed;
+        player.y += yDir[int(player.direction)] * player.speed;
+    }
     // Check in bounds
     if (player.x < 0)
     {
@@ -44,40 +55,65 @@ void updatePlayer(GameObject &player)
 
 void actOnInput(GameObject &player)
 {
-    if (inpRG && !inpRGPressed)
+    if (player.verticalMovement)
     {
-        player.direction = floor(player.direction + 1);
-        if (player.direction >= player.noOfDirections)
+        if (inpUP)
         {
-            player.direction -= player.noOfDirections;
+            if (!inpUPPressed)
+            {
+                player.speed = 0;
+            }
+            player.direction = 0;
+            player.speed += player.acceleration;
         }
-    }
-    if (inpRG && inpRGPressed) {
-        player.direction += player.turnRate;
-        if (player.direction >= player.noOfDirections)
+        if (inpDW)
         {
-            player.direction -= player.noOfDirections;
+            if (!inpDWPressed)
+            {
+                player.speed = 0;
+            }
+            player.direction = 4;
+            player.speed += player.acceleration;
         }
-    }
-    if (inpLF && !inpLFPressed)
-    {
-        player.direction = floor(player.direction) - player.turnRate;
-        if (player.direction < 0)
+    } else {
+        if (inpRG && !inpRGPressed)
         {
-            player.direction = player.noOfDirections - player.turnRate;
+            player.direction = floor(player.direction + 1);
+            if (player.direction >= player.noOfDirections)
+            {
+                player.direction -= player.noOfDirections;
+            }
         }
-    }
-    if (inpLF && inpLFPressed) {
-        if (player.direction <= 0)
+        if (inpRG && inpRGPressed) {
+            player.direction += player.turnRate;
+            if (player.direction >= player.noOfDirections)
+            {
+                player.direction -= player.noOfDirections;
+            }
+        }
+        if (inpLF && !inpLFPressed)
         {
-            player.direction += player.noOfDirections;
+            player.direction = floor(player.direction) - player.turnRate;
+            if (player.direction < 0)
+            {
+                player.direction = player.noOfDirections - player.turnRate;
+            }
         }
-        player.direction -= player.turnRate;
+        if (inpLF && inpLFPressed) {
+            if (player.direction <= 0)
+            {
+                player.direction += player.noOfDirections;
+            }
+            player.direction -= player.turnRate;
+        }
+
+        if (inpF2 && player.thrustAvailable)
+        {
+            player.speed += player.acceleration;
+        }
     }
     inpLFPressed = inpLF;
     inpRGPressed = inpRG;
-    if (inpF2 && player.thrustAvailable)
-    {
-        player.speed += player.acceleration;
-    }
+    inpUPPressed = inpUP;
+    inpDWPressed = inpDW;
 }

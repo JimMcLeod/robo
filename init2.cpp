@@ -38,6 +38,7 @@ void initPlayer(GameObject &player)
 
     player.senseless = false;
     player.thrustAvailable = true;
+    player.verticalMovement = true;
 
     player.x = 400;
     player.y = 240;

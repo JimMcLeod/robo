@@ -9,6 +9,7 @@ struct GameObject
 
     bool senseless; // if true input is igmored
     bool thrustAvailable; // if true player can move using thrust
+    bool verticalMovement; // if true up/down moves player
 
     float x;
     float y;
