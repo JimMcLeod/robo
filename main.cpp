@@ -96,7 +96,7 @@ void initialisation()
     // Disable cursor
     SDL_ShowCursor(SDL_DISABLE);
 
-    // Set up 8 directional movement table
+    // Set up 8 directional movement table (0 is north, moving clockwise)
     float dirInc = 360/8;
     for (int i=0; i<8; i++)
     {
@@ -111,6 +111,10 @@ void freeResources()
     // Free images
     SDL_FreeSurface(titleGFX);
     SDL_FreeSurface(backgroundGFX);
+    SDL_FreeSurface(bitmapFont);
+    SDL_FreeSurface(bitmapFontBlack);
+    SDL_FreeSurface(bitmapFontHighlight);
+    
     for (int i=0; i<4; i++)
     {
         for (int j=0; j<8; j++)
