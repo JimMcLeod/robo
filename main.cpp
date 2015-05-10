@@ -18,7 +18,7 @@ bool done;
 
 SDL_Surface* titleGFX;
 SDL_Surface* backgroundGFX;
-SDL_Surface* playerGFX[4][8];
+SDL_Surface* playerGFX[32];
 SDL_Surface* bulletGFX;
 SDL_Surface* bitmapFont;
 SDL_Surface* bitmapFontBlack;
@@ -118,12 +118,9 @@ void freeResources()
     SDL_FreeSurface(bitmapFontBlack);
     SDL_FreeSurface(bitmapFontHighlight);
 
-    for (int i=0; i<4; i++)
+    for (int i=0; i<32; i++)
     {
-        for (int j=0; j<8; j++)
-        {
-            SDL_FreeSurface(playerGFX[i][j]);
-        }
+            SDL_FreeSurface(playerGFX[i]);
     }
 
 }

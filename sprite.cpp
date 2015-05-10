@@ -29,12 +29,12 @@ void sprite(GameObject &gameObject)
                 direction = int(gameObject.direction);
             }
             // Set object position
-            xoffset=playerGFX[animFrame][direction]->w/2;
-            yoffset=playerGFX[animFrame][direction]->h/2;
+            xoffset=playerGFX[direction]->w/2;
+            yoffset=playerGFX[direction]->h/2;
             gameObjectRect.x=gameObject.x-xoffset;
             gameObjectRect.y=gameObject.y-yoffset;
 
-            SDL_BlitSurface(playerGFX[animFrame][direction], 0, screen, &gameObjectRect);
+            SDL_BlitSurface(playerGFX[direction], 0, screen, &gameObjectRect);
             break;
 
         case typeBullet:

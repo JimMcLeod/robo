@@ -42,16 +42,18 @@ void loadImages()
 
 void loadPlayerGFX()
 {
-    for (int i=1; i<5; i++)
+    for (int i=1; i<32; i++)
     {
-        for (int j=0; j<8; j++)
+        std::string filename="img/ply1_";
+        if (i < 10)
         {
-            std::string filename="img/pl";
+            filename.append("0");
             filename.append(1, static_cast<char>(i+48));
-            filename.append("_0");
-            filename.append(1, static_cast<char>(j+48));
-            filename.append(".png");
-            playerGFX[i-1][j] = loadSurface(filename);
+        } else {
+            filename.append(1, static_cast<char>((i/10)+48));
+            filename.append(1, static_cast<char>((i%10)+48));
         }
+        filename.append(".png");
+        playerGFX[i] = loadSurface(filename);
     }
 }

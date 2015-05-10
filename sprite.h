@@ -5,7 +5,7 @@
 #include "game_object.h"
 
 extern GameObject gameObjects[];
-extern SDL_Surface* playerGFX[4][8];
+extern SDL_Surface* playerGFX[32];
 extern SDL_Surface* bulletGFX;
 extern SDL_Surface* screen;
 
