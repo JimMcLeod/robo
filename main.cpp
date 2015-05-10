@@ -27,8 +27,8 @@ SDL_Surface* bitmapFontHighlight;
 const int noOfGameObjects = 20;
 GameObject gameObjects[noOfGameObjects];
 
-float xDir[8];
-float yDir[8];
+float xDir[32];
+float yDir[32];
 
 const int FPS = 30;
 Uint32 waitTime = 1000.0f/FPS;
@@ -99,14 +99,17 @@ void initialisation()
     // Disable cursor
     SDL_ShowCursor(SDL_DISABLE);
 
-    // Set up 8 directional movement table (0 is north, moving clockwise)
-    float dirInc = 360/8;
-    for (int i=0; i<8; i++)
+    // Set up 32 directional movement table (0 is north, moving clockwise)
+    float dirInc = 360/32;
+    for (int i=0; i<32; i++)
     {
-        int j = (-i + 4) & 7;
-        xDir[i] = sin(j*dirInc*3.1415/180);
-        yDir[i] = cos(j*dirInc*3.1415/180);
+        int j = (-i + 16) & 31;
+        xDir[i] = sin(j*dirInc*3.14159/180);
+        yDir[i] = cos(j*dirInc*3.14159/180);
     }
+    xDir[0] = 0;
+    yDir[8] = 0;
+    yDir[24] = 0;
 }
 
 void freeResources()

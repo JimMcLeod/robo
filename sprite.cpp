@@ -22,6 +22,7 @@ void sprite(GameObject &gameObject)
         case typePlayer:
             // Set object direction
             int direction;
+
             if (gameObject.verticalMovement)
             {
                 direction = 2;

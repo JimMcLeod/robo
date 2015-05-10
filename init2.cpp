@@ -49,8 +49,8 @@ void initPlayer(GameObject &player)
     player.acceleration = 0.3;
     player.friction = 0.2;
 
-    player.turnRate = 0.2;
-    player.noOfDirections = 8;
+    player.turnRate = 0.5;
+    player.noOfDirections = 32;
 
     player.animFrame = 0;
     player.animUpdate = 0.2;

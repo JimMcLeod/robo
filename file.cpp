@@ -42,7 +42,7 @@ void loadImages()
 
 void loadPlayerGFX()
 {
-    for (int i=1; i<32; i++)
+    for (int i=0; i<32; i++)
     {
         std::string filename="img/ply1_";
         if (i < 10)

@@ -12,8 +12,8 @@ extern bool inpF1;
 extern bool inpF2;
 extern bool done;
 
-extern float xDir[8];
-extern float yDir[8];
+extern float xDir[32];
+extern float yDir[32];
 
 extern SDL_Rect playerRect;
 
