@@ -11,6 +11,11 @@ struct GameObject
     bool thrustAvailable; // if true player can move using thrust
     bool verticalMovement; // if true up/down moves player
 
+    bool asteroidStyle; //  if true asyeroids style movement
+    bool thrustActivated; // if true thrust was pressed
+    float xVector;
+    float yVector;
+
     float x;
     float y;
     float width;

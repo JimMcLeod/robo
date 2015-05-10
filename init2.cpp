@@ -33,12 +33,16 @@ void initBackground(GameObject &background)
 void initPlayer(GameObject &player)
 {
     player.active = true;
-    player.id = 0;
+    player.id = 1;
     player.type = typePlayer;
 
     player.senseless = false;
     player.thrustAvailable = true;
     player.verticalMovement = false;
+    player.asteroidStyle = true;
+    player.thrustActivated = false;
+    player.xVector = 0;
+    player.yVector = 0;
 
     player.x = 400;
     player.y = 240;
@@ -72,6 +76,10 @@ void clearGameObject(GameObject &gameObject)
     gameObject.senseless = false;
     gameObject.thrustAvailable = false;
     gameObject.verticalMovement = false;
+    gameObject.asteroidStyle = false;
+    gameObject.thrustActivated = false;
+    gameObject.xVector = 0;
+    gameObject.yVector = 0;
 
     gameObject.x = 0;
     gameObject.y = 0;
@@ -82,7 +90,7 @@ void clearGameObject(GameObject &gameObject)
     gameObject.turnRate = 0;
     gameObject.noOfDirections = 0;
 
-    gameObject.speed = 0;
+    gameObject.speed = 1;
     gameObject.topSpeed = 0;
     gameObject.acceleration = 0;
     gameObject.friction = 0;

@@ -17,8 +17,20 @@ void updatePlayer(GameObject &player)
         player.speed = player.topSpeed;
     }
     // Update position
-    player.x += xDir[int(player.direction)] * player.speed;
-    player.y += yDir[int(player.direction)] * player.speed;
+    if (player.asteroidStyle)
+    {
+        if (player.thrustActivated)
+        {
+            player.xVector += xDir[int(player.direction)] * 1;//player.speed;
+            player.yVector += yDir[int(player.direction)] * 1;//player.speed;
+            printf("x:%f  y:%f\n", player.xVector, player.yVector);
+        }
+        player.x += player.xVector;
+        player.y += player.yVector;
+    } else {
+        player.x += xDir[int(player.direction)] * player.speed;
+        player.y += yDir[int(player.direction)] * player.speed;
+    }
     // Check in bounds
     if (player.x < 0)
     {
@@ -37,10 +49,13 @@ void updatePlayer(GameObject &player)
         player.y = screen->h;
     }
     // Friction
-    player.speed -= player.friction;
-    if (player.speed < 0)
+    if (!player.asteroidStyle)
     {
-        player.speed = 0;
+        player.speed -= player.friction;
+        if (player.speed < 0)
+        {
+            player.speed = 0;
+        }
     }
 }
 
@@ -98,9 +113,15 @@ void actOnInput(GameObject &player)
             player.direction -= player.turnRate;
         }
 
+        player.thrustActivated = false;
         if (inpF2 && player.thrustAvailable)
         {
-            player.speed += player.acceleration;
+            if (player.asteroidStyle)
+            {
+                player.thrustActivated = true;
+            } else {
+                player.speed += player.acceleration;
+            }
         }
     }
     if (inpF1 && !inpF1Pressed)
