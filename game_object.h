@@ -15,6 +15,7 @@ struct GameObject
     bool thrustActivated; // if true thrust was pressed
     float xVector;
     float yVector;
+    float gravity;
 
     float x;
     float y;

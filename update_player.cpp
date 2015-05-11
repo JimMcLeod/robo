@@ -23,7 +23,10 @@ void updatePlayer(GameObject &player)
         {
             player.xVector += xDir[int(player.direction)] * 1;//player.speed;
             player.yVector += yDir[int(player.direction)] * 1;//player.speed;
-            printf("x:%f  y:%f\n", player.xVector, player.yVector);
+        }
+        if (player.gravity > 0)
+        {
+            player.yVector += player.gravity;
         }
         player.x += player.xVector;
         player.y += player.yVector;
@@ -56,6 +59,9 @@ void updatePlayer(GameObject &player)
         {
             player.speed = 0;
         }
+    } else {
+        player.xVector *= player.friction;
+        player.yVector *= player.friction;
     }
 }
 

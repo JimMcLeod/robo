@@ -43,6 +43,7 @@ void initPlayer(GameObject &player)
     player.thrustActivated = false;
     player.xVector = 0;
     player.yVector = 0;
+    player.gravity = 0.18;
 
     player.x = 400;
     player.y = 240;
@@ -51,7 +52,7 @@ void initPlayer(GameObject &player)
     player.speed = 0;
     player.topSpeed = 10;
     player.acceleration = 0.3;
-    player.friction = 0.2;
+    player.friction = 0.97;
 
     player.turnRate = 0.5;
     player.noOfDirections = 32;
@@ -80,6 +81,7 @@ void clearGameObject(GameObject &gameObject)
     gameObject.thrustActivated = false;
     gameObject.xVector = 0;
     gameObject.yVector = 0;
+    gameObject.gravity = 0;
 
     gameObject.x = 0;
     gameObject.y = 0;
