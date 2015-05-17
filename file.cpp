@@ -68,7 +68,6 @@ void loadMap()
 
     std::ifstream file;
     file.open("map/robo.map");
-    char line[256];
 
     if (!file)
     {

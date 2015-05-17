@@ -3,7 +3,7 @@
 void initGame()
 {
     // Clear game object
-    for (unsigned int i=0; i<noOfGameObjects; i++)
+    for (signed int i=0; i<noOfGameObjects; i++)
     {
         clearGameObject(gameObjects[i]);
     }
@@ -40,7 +40,7 @@ void initPlayer(GameObject &player)
     player.senseless = false;
     player.thrustAvailable = true;
     player.verticalMovement = false;
-    player.asteroidStyle = true;
+    player.asteroidStyle = false;
     player.thrustActivated = false;
     player.xVector = 0;
     player.yVector = 0;
@@ -53,7 +53,7 @@ void initPlayer(GameObject &player)
     player.speed = 0;
     player.topSpeed = 10;
     player.acceleration = 0.3;
-    player.friction = 0.97;
+    player.friction = 0.2;
 
     player.turnRate = 0.5;
     player.noOfDirections = 32;

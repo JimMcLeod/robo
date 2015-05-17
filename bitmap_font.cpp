@@ -13,7 +13,7 @@ void drawBitmapString(int x, int y, std::string output)
     bool invert = false;
     bool highlight = false;
 
-    for (int i=0; i<output.length(); i++)
+    for (unsigned int i=0; i<output.length(); i++)
     {
         int c = int(output[i]);
         switch (c)

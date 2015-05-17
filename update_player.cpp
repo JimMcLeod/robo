@@ -7,6 +7,7 @@ bool inpDWPressed = false;
 
 void updatePlayer(GameObject &player)
 {
+    int direction = player.direction;
     if (!player.senseless)
     {
         actOnInput(player);
@@ -32,7 +33,35 @@ void updatePlayer(GameObject &player)
         player.y += player.yVector;
     } else {
         player.x += xDir[int(player.direction)] * player.speed;
+        if (environmentCollision(player.x + 24, player.y))
+        {
+            while (environmentCollision(player.x + 24, player.y))
+            {
+                player.x = int(player.x) - 1;
+            }
+        }
+        if (environmentCollision(player.x - 24, player.y))
+        {
+            while (environmentCollision(player.x - 24, player.y))
+            {
+                player.x = int(player.x) + 1;
+            }
+        }
         player.y += yDir[int(player.direction)] * player.speed;
+        if (environmentCollision(player.x, player.y + 24))
+        {
+            while (environmentCollision(player.x, player.y + 24))
+            {
+                player.y = int(player.y) - 1;
+            }
+        }
+        if (environmentCollision(player.x, player.y - 24))
+        {
+            while (environmentCollision(player.x, player.y - 24))
+            {
+                player.y = int(player.y) + 1;
+            }
+        }
     }
     // Check in bounds
     if (player.x < 0)
@@ -149,4 +178,18 @@ void actOnInput(GameObject &player)
     inpUPPressed = inpUP;
     inpDWPressed = inpDW;
     inpF1Pressed = inpF1;
+}
+
+bool environmentCollision(float x, float y)
+{
+    int ix, iy;
+    ix = x / 16;
+    iy = y / 16;
+
+    if (map[ix][iy] != 1)
+    {
+        return true;
+    } else {
+        return false;
+    }
 }

@@ -17,8 +17,10 @@ extern bool done;
 extern float xDir[32];
 extern float yDir[32];
 extern SDL_Surface* screen;
+extern SDL_Surface* playerGFX[32];
 
 void actOnInput(GameObject &player);
 void updatePlayer(GameObject &player);
+bool environmentCollision(float x, float y);
 
 #endif
