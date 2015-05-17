@@ -37,6 +37,7 @@ void loadImages()
     bitmapFont = loadSurface("img/font.png");
     bitmapFontBlack = loadSurface("img/font_black.png");
     bitmapFontHighlight = loadSurface("img/font_highlight.png");
+    tilesGFX = loadSurface("img/tiles.png");
     loadPlayerGFX();
 }
 
@@ -56,4 +57,51 @@ void loadPlayerGFX()
         filename.append(".png");
         playerGFX[i] = loadSurface(filename);
     }
+}
+
+void loadMap()
+{
+    SDL_Rect tile;
+    tile.w = 16;
+    tile.h = 16;
+    SDL_Rect dest;
+
+    std::ifstream file;
+    file.open("map/robo.map");
+    char line[256];
+
+    if (!file)
+    {
+        printf("File not found or summat.\n");
+        return;
+    }
+
+    for(int row = 0; row < 30; ++row)
+    {
+        std::string line;
+        std::getline(file, line);
+
+
+        std::stringstream iss(line);
+
+        for (int col = 0; col < 50; ++col)
+        {
+            std::string val;
+            std::getline(iss, val, ',');
+
+            std::stringstream convertor(val);
+            convertor >> map[col][row];
+            int block = map[col][row] - 1;
+            dest.x = col * 16;
+            dest.y = row * 16;
+            dest.w = 16;
+            dest.h = 16;
+            tile.x = (block % 10) * 16;
+            tile.y = (block / 10) * 16;
+            tile.w = 16;
+            tile.h = 16;
+            SDL_BlitSurface(tilesGFX, &tile, backgroundGFX, &dest);
+        }
+    }
+    return;
 }

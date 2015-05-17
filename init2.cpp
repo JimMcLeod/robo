@@ -5,8 +5,9 @@ void initGame()
     // Clear game object
     for (unsigned int i=0; i<noOfGameObjects; i++)
     {
-        gameObjects[i].active = false;
+        clearGameObject(gameObjects[i]);
     }
+    loadMap();
     initTitlePage();
 }
 
@@ -43,7 +44,7 @@ void initPlayer(GameObject &player)
     player.thrustActivated = false;
     player.xVector = 0;
     player.yVector = 0;
-    player.gravity = 0.18;
+    player.gravity = 0;
 
     player.x = 400;
     player.y = 240;

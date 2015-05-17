@@ -17,6 +17,7 @@ bool inpF2Pressed = false;
 bool done;
 
 SDL_Surface* titleGFX;
+SDL_Surface* tilesGFX;
 SDL_Surface* backgroundGFX;
 SDL_Surface* playerGFX[32];
 SDL_Surface* bulletGFX;
@@ -29,6 +30,8 @@ GameObject gameObjects[noOfGameObjects];
 
 float xDir[32];
 float yDir[32];
+
+int map[50][30];
 
 const int FPS = 30;
 Uint32 waitTime = 1000.0f/FPS;

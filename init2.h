@@ -7,6 +7,7 @@
 #include "background.h"
 #include "enums.h"
 #include "update_player.h"
+#include "file.h"
 
 extern const int noOfGameObjects;
 extern GameObject gameObjects[];
